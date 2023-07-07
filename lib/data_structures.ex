@@ -1,0 +1,2 @@
+defmodule DataStructures do
+end
