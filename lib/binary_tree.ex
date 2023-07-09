@@ -45,7 +45,8 @@ defmodule DataStructures.BinaryTree do
   @spec value_in_tree?(t, term) :: boolean
   def value_in_tree?(%__MODULE__{value: val}, tar) when val == tar, do: true
   def value_in_tree?(nil, _tar), do: false
-
+  
+  #recursive cases
   def value_in_tree?(%__MODULE__{value: val, left: left}, tar) when tar < val do
     value_in_tree?(left, tar)
   end
