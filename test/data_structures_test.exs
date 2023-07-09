@@ -25,19 +25,18 @@ defmodule DataStructuresTest do
   end
 
   describe "Fast implementation of double queue" do
-
     test "pops from empty queue return nil" do
-      queue = FastDoubleQueue.new([])       
+      queue = FastDoubleQueue.new([])
       assert FastDoubleQueue.pop_front(queue) == {nil, {[], []}}
       assert FastDoubleQueue.pop_back(queue) == {nil, {[], []}}
     end
 
     test "can pop at front" do
       queue = FastDoubleQueue.new([1, 2, 3])
-      assert FastDoubleQueue.pop_front(queue) == {1, {[2,3], []}}
+      assert FastDoubleQueue.pop_front(queue) == {1, {[2, 3], []}}
 
-      queue = {[], [5,4,3]}
-      assert FastDoubleQueue.pop_front(queue) == {3, {[4],[5]}}
+      queue = {[], [5, 4, 3]}
+      assert FastDoubleQueue.pop_front(queue) == {3, {[4], [5]}}
     end
 
     test "can pop at back" do
@@ -53,6 +52,30 @@ defmodule DataStructuresTest do
     test "can push at front" do
       queue = FastDoubleQueue.new([1, 2, 3])
       assert FastDoubleQueue.push_front(queue, 0) == {[0, 1, 2, 3], []}
+    end
+
+    test "push back then pop front doesnt return pushed value (empty back)" do
+      queue = {[1, 2, 3], []}
+      queue = FastDoubleQueue.push_back(queue, 4)
+      assert FastDoubleQueue.pop_front(queue) == {1, {[2, 3], [4]}}
+    end
+
+    test "push back then pop front doesnt return pushed value (empty front)" do
+      queue = {[], [3, 2, 1]}
+      queue = FastDoubleQueue.push_back(queue, 4)
+      assert FastDoubleQueue.pop_front(queue) == {1, {[2], [4, 3]}}
+    end
+
+    test "push front then pop back doesnt return pushed value (empty back)" do
+      queue = {[1, 2, 3], []}
+      queue = FastDoubleQueue.push_front(queue, 0)
+      assert FastDoubleQueue.pop_back(queue) == {3, {[0, 1], [2]}}
+    end
+
+    test "push front then pop back doesnt return pushed value (empty front)" do
+      queue = {[], [3, 2, 1]}
+      queue = FastDoubleQueue.push_front(queue, 0)
+      assert FastDoubleQueue.pop_back(queue) == {3, {[0], [2, 1]}}
     end
   end
 end
