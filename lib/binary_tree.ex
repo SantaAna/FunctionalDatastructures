@@ -49,7 +49,8 @@ defmodule DataStructures.BinaryTree do
   up to the calling function via a RuntimeError (this is generally a bad idea, but here we 
   are specifically trying to save memory over all else) and is then used to update the tree 
   via Kernel.put_in/3.  This version hinges on put_in being more memory efficient than copying
-  a path down to the leaf where we insert the node as with add_node.
+  a path down to the leaf where we insert the node as with add_node.  Unfortunately put_in is 
+  **not** faster than copying.
 
   To redcue the number of comparisons we take the right branch as soon as we know that we aren't
   taking the left branch instead of making a check to see if the new_value is less than the current 
